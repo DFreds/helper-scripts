@@ -53,6 +53,8 @@ const directoriesToProcess = response.directories.includes("all")
     ? moduleDirs
     : response.directories;
 
+const errors: { module: string; error: any }[] = [];
+
 for (const dir of directoriesToProcess) {
     const targetDir = path.resolve(dir, "types", "foundry");
     console.log(`\nProcessing ${path.basename(dir)}...`);
@@ -75,8 +77,18 @@ for (const dir of directoriesToProcess) {
         execSync("npm run lint:fix", { cwd: dir, stdio: "inherit" });
         console.log(`Successfully ran lint:fix in ${path.basename(dir)}`);
     } catch (error) {
-        console.error(`Error processing ${path.basename(dir)}:`, error);
+        errors.push({ module: path.basename(dir), error });
+        console.log(`Failed to process ${path.basename(dir)}`);
     }
+}
+
+// Print all errors at the end if any occurred
+if (errors.length > 0) {
+    console.log("\nErrors encountered during processing:");
+    errors.forEach(({ module, error }) => {
+        console.error(`\nError in module ${module}:`);
+        console.error(error);
+    });
 }
 
 console.log(
