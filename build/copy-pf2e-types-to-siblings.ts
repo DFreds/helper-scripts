@@ -2,6 +2,7 @@ import fs from "fs";
 import fsExtra from "fs-extra";
 import path from "path";
 import prompts from "prompts";
+import { execSync } from "child_process";
 
 // @ts-expect-error - This is a JSON file, not a TypeScript file
 import { pf2eRepoPath, modules } from "../foundryconfig.json";
@@ -68,9 +69,16 @@ for (const dir of directoriesToProcess) {
         fs.mkdirSync(targetDir, { recursive: true });
         fsExtra.copySync(sourceDataPath, targetDir);
         console.log(`Successfully copied types to ${path.basename(dir)}`);
+
+        // Run lint:fix in the module directory
+        console.log(`Running lint:fix in ${path.basename(dir)}...`);
+        execSync("npm run lint:fix", { cwd: dir, stdio: "inherit" });
+        console.log(`Successfully ran lint:fix in ${path.basename(dir)}`);
     } catch (error) {
         console.error(`Error processing ${path.basename(dir)}:`, error);
     }
 }
 
-console.log("\nFinished copying types to selected modules");
+console.log(
+    "\nFinished copying types and running lint:fix on selected modules",
+);
