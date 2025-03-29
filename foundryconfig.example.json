@@ -1,0 +1,25 @@
+{
+    "dataPath": "/absolute/path/to/your/FoundryVTT/Data",
+    "pf2eRepoPath": "path/to/pf2e/system/repo",
+    "modules": [
+        "lib-dfreds-ui-extender",
+        "dfreds-ai-helper",
+        "dfreds-chat-pins",
+        "dfreds-clipboard",
+        "dfreds-convenient-effects",
+        "dfreds-droppables",
+        "dfreds-effects-panel",
+        "dfreds-effects-to-chat",
+        "dfreds-module-template-ts",
+        "dfreds-obvious-settings",
+        "dfreds-picky-ui",
+        "dfreds-select-tool",
+        "dfreds-status-effects",
+        "fate-core-unleashed"
+    ],
+    "fvtt": {
+        "11": "path/to/foundryvtt-11/folder",
+        "12": "path/to/foundryvtt-12/folder",
+        "13": "path/to/foundryvtt-13/folder"
+    }
+}
