@@ -1,4 +1,3 @@
-import fs from "fs";
 import path from "path";
 import prompts from "prompts";
 import { execSync } from "child_process";
