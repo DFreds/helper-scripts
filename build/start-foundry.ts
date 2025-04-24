@@ -33,8 +33,8 @@ if (!dataPath || !/\bData$/.test(dataPath)) {
     process.exit(1);
 }
 
-const execPath = path.resolve(fvttPath, "Foundry Virtual Tabletop.exe");
-const nodeEntryPoint = path.resolve(fvttPath, "resources", "app", "main.js");
+const execPath = path.resolve(fvttPath, "App", "Foundry Virtual Tabletop.exe");
+const nodeEntryPoint = path.resolve(fvttPath, "main.js");
 
 const execAsync = promisify(exec);
 
