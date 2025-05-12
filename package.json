@@ -7,6 +7,7 @@
     "scripts": {
         "foundry": "tsx ./build/start-foundry.ts",
         "update-types": "tsx ./build/update-pf2e-types.ts && tsx ./build/copy-pf2e-types-to-modules.ts",
+        "update-ui-extender-types": "tsx ./build/copy-ui-extender-types-to-modules.ts",
         "stage": "tsx ./build/stage-modules.ts",
         "lint": "npm run lint:ts && npm run lint:json && npm run prettier:scss",
         "lint:ts": "eslint ./src ./types --ext .ts",
