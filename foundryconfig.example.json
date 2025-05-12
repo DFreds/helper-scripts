@@ -1,6 +1,7 @@
 {
     "dataPath": "/absolute/path/to/your/FoundryVTT/Data",
     "pf2eRepoPath": "path/to/pf2e/system/repo",
+    "uiExtenderRepoPath": "path/to/ui-extender/system/repo",
     "modules": [
         "lib-dfreds-ui-extender",
         "dfreds-ai-helper",
@@ -16,6 +17,12 @@
         "dfreds-select-tool",
         "dfreds-status-effects",
         "fate-core-unleashed"
+    ],
+    "uiExtenderModules": [
+        "dfreds-clipboard",
+        "dfreds-convenient-effects",
+        "dfreds-select-tool",
+        "dfreds-status-effects"
     ],
     "fvtt": {
         "11": "path/to/foundryvtt-11/folder",
