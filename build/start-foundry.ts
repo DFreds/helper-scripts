@@ -35,6 +35,7 @@ if (!dataPath || !/\bData$/.test(dataPath)) {
 
 const execPath = path.resolve(fvttPath, "App", "Foundry Virtual Tabletop.exe");
 const nodeEntryPoint = path.resolve(fvttPath, "main.js");
+const oldNodeEntryPoint = path.resolve(fvttPath, "resources", "app", "main.js");
 
 const execAsync = promisify(exec);
 
@@ -62,9 +63,19 @@ const startFoundry = async () => {
             console.log(`stdout: ${stdout}`);
 
             if (stderr) console.error(`stderr: ${stderr}`);
+        } else if (fs.existsSync(oldNodeEntryPoint)) {
+            console.log(`Starting FoundryVTT from ${oldNodeEntryPoint}...`);
+
+            const { stdout, stderr } = await execAsync(
+                `node ${oldNodeEntryPoint} --datapath=${dataPath}`,
+            );
+
+            console.log(`stdout: ${stdout}`);
+
+            if (stderr) console.error(`stderr: ${stderr}`);
         } else {
             console.error(
-                `Cannot start FoundryVTT. "${nodeEntryPoint}" or "${execPath}" do not exist.`,
+                `Cannot start FoundryVTT. "${nodeEntryPoint}" or "${execPath}" or "${oldNodeEntryPoint}" do not exist.`,
             );
             process.exit(1);
         }
