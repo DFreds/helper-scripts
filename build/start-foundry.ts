@@ -9,17 +9,27 @@ import { dataPath, fvtt } from "../foundryconfig.json";
 import { exec } from "child_process";
 import { promisify } from "util";
 
-const fvttVersion = (
-    await prompts({
-        type: "select",
-        name: "value",
-        message: "Select the FoundryVTT version you want to use.",
-        choices: Object.keys(fvtt).map((version) => ({
-            title: version,
-            value: version,
-        })),
-    })
-).value as string;
+const fvttKeys = Object.keys(fvtt);
+let fvttVersion: string;
+
+if (fvttKeys.length === 1) {
+    // Auto-select if there's only one key
+    fvttVersion = fvttKeys[0];
+    console.log(`Auto-selected FoundryVTT version: ${fvttVersion}`);
+} else {
+    // Prompt user if there are multiple keys
+    fvttVersion = (
+        await prompts({
+            type: "select",
+            name: "value",
+            message: "Select the FoundryVTT version you want to use.",
+            choices: fvttKeys.map((version) => ({
+                title: version,
+                value: version,
+            })),
+        })
+    ).value as string;
+}
 
 const fvttPath = fvtt[fvttVersion as keyof typeof fvtt];
 
