@@ -2,9 +2,10 @@
     "dataPath": "/absolute/path/to/your/FoundryVTT/Data",
     "pf2eRepoPath": "path/to/pf2e/system/repo",
     "uiExtenderRepoPath": "path/to/ui-extender/system/repo",
+    "migrationsRepoPath": "path/to/migrations/system/repo",
     "modules": [
         "lib-dfreds-ui-extender",
-        "dfreds-ai-helper",
+        "lib-dfreds-migrations",
         "dfreds-chat-pins",
         "dfreds-clipboard",
         "dfreds-convenient-effects",
@@ -22,6 +23,10 @@
         "dfreds-clipboard",
         "dfreds-convenient-effects",
         "dfreds-select-tool",
+        "dfreds-status-effects"
+    ],
+    "migrationModules": [
+        "dfreds-convenient-effects",
         "dfreds-status-effects"
     ],
     "fvtt": {
