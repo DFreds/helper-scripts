@@ -1,51 +1,32 @@
 import fs from "fs-extra";
 import path from "path";
 import process from "process";
-import prompts from "prompts";
-
-// @ts-expect-error - This is a JSON file, not a TypeScript file
-import { dataPath, fvtt } from "../foundryconfig.json";
-
-import { exec } from "child_process";
 import { promisify } from "util";
 
-const fvttKeys = Object.keys(fvtt);
-let fvttVersion: string;
+import { exec } from "child_process";
 
-if (fvttKeys.length === 1) {
-    // Auto-select if there's only one key
-    fvttVersion = fvttKeys[0];
-    console.log(`Auto-selected FoundryVTT version: ${fvttVersion}`);
-} else {
-    // Prompt user if there are multiple keys
-    fvttVersion = (
-        await prompts({
-            type: "select",
-            name: "value",
-            message: "Select the FoundryVTT version you want to use.",
-            choices: fvttKeys.map((version) => ({
-                title: version,
-                value: version,
-            })),
-        })
-    ).value as string;
+import { promptFvttInstall } from "./fvtt-install.js";
+
+const install = await promptFvttInstall();
+if (!install) {
+    process.exit(0);
 }
 
-const fvttPath = fvtt[fvttVersion as keyof typeof fvtt];
+const { appLocation, dataPath } = install;
 
-if (!fvttPath) {
-    console.error(`FoundryVTT version "${fvttVersion}" not found.`);
+if (!dataPath || /\bData$/.test(dataPath)) {
+    console.error(`You should point the dataPath to the location that will contain the Data folder, not the Data folder itself.`);
     process.exit(1);
 }
 
-if (!dataPath || !/\bData$/.test(dataPath)) {
-    console.error(`"${dataPath}" does not look like a Foundry data folder.`);
-    process.exit(1);
-}
-
-const execPath = path.resolve(fvttPath, "App", "Foundry Virtual Tabletop.exe");
-const nodeEntryPoint = path.resolve(fvttPath, "main.js");
-const oldNodeEntryPoint = path.resolve(fvttPath, "resources", "app", "main.js");
+const execPath = path.resolve(appLocation, "App", "Foundry Virtual Tabletop.exe");
+const nodeEntryPoint = path.resolve(appLocation, "main.js");
+const oldNodeEntryPoint = path.resolve(
+    appLocation,
+    "resources",
+    "app",
+    "main.js",
+);
 
 const execAsync = promisify(exec);
 
@@ -57,7 +38,7 @@ const startFoundry = async () => {
                 "Make sure to close FoundryVTT instead of using Ctrl-C to stop it.",
             );
 
-            const quotedPath = `"${execPath}"`;
+            const quotedPath = `"${execPath}" --dataPath=${dataPath}`;
             const { stdout, stderr } = await execAsync(quotedPath);
 
             console.log(`stdout: ${stdout}`);
@@ -67,7 +48,7 @@ const startFoundry = async () => {
             console.log(`Starting FoundryVTT from ${nodeEntryPoint}...`);
 
             const { stdout, stderr } = await execAsync(
-                `node ${nodeEntryPoint} --datapath=${dataPath}`,
+                `node ${nodeEntryPoint} --dataPath=${dataPath}`,
             );
 
             console.log(`stdout: ${stdout}`);
@@ -77,7 +58,7 @@ const startFoundry = async () => {
             console.log(`Starting FoundryVTT from ${oldNodeEntryPoint}...`);
 
             const { stdout, stderr } = await execAsync(
-                `node ${oldNodeEntryPoint} --datapath=${dataPath}`,
+                `node ${oldNodeEntryPoint} --dataPath=${dataPath}`,
             );
 
             console.log(`stdout: ${stdout}`);
@@ -85,7 +66,7 @@ const startFoundry = async () => {
             if (stderr) console.error(`stderr: ${stderr}`);
         } else {
             console.error(
-                `Cannot start FoundryVTT. "${nodeEntryPoint}" or "${execPath}" or "${oldNodeEntryPoint}" do not exist.`,
+                `Cannot start FoundryVTT. "${nodeEntryPoint}" and "${execPath}" and "${oldNodeEntryPoint}" do not exist.`,
             );
             process.exit(1);
         }

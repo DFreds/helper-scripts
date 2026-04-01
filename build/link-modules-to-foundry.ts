@@ -4,10 +4,19 @@ import process from "process";
 import prompts from "prompts";
 
 // @ts-expect-error - This is a JSON file, not a TypeScript file
-import { dataPath, modules } from "../foundryconfig.json";
+import { modules } from "../foundryconfig.json";
 
-if (!dataPath || !/\bData$/.test(dataPath)) {
-    console.error(`"${dataPath}" does not look like a Foundry data folder.`);
+import { promptFvttInstall } from "./fvtt-install.js";
+
+const install = await promptFvttInstall();
+if (!install) {
+    process.exit(0);
+}
+
+const { dataPath } = install;
+
+if (!dataPath || /\bData$/.test(dataPath)) {
+    console.error(`You should point the dataPath to the location that will contain the Data folder, not the Data folder itself.`);
     process.exit(1);
 }
 
@@ -17,6 +26,10 @@ if (!dataPathStats?.isDirectory()) {
     console.error(`No folder found at "${dataPath}"`);
     process.exit(1);
 }
+
+// Create the Data and modules folders if they don't exist
+const modulesDir = path.resolve(dataPath, "Data", "modules");
+fs.mkdirSync(modulesDir, { recursive: true });
 
 const parentDir = path.resolve(process.cwd(), "..");
 const moduleDirs = modules.map((mod) => path.resolve(parentDir, mod));
@@ -89,7 +102,7 @@ for (const moduleRoot of directoriesToProcess) {
         continue;
     }
 
-    const symlinkPath = path.resolve(dataPath, "modules", moduleId);
+    const symlinkPath = path.resolve(dataPath, "Data", "modules", moduleId);
     const symlinkStats = fs.lstatSync(symlinkPath, { throwIfNoEntry: false });
 
     if (symlinkStats) {
