@@ -5,10 +5,10 @@ import { execSync } from "child_process";
 // @ts-expect-error - This is a JSON file, not a TypeScript file
 import { modules } from "../foundryconfig.json";
 
-const parentDir = path.resolve(process.cwd(), "..");
+import { resolveModulePath } from "./config-paths.js";
 
 // Get all module directories
-const moduleDirs = modules.map((mod) => path.resolve(parentDir, mod));
+const moduleDirs = modules.map((mod) => resolveModulePath(mod));
 
 console.log(`Found ${moduleDirs.length} modules in config`);
 

@@ -6,6 +6,7 @@ import prompts from "prompts";
 // @ts-expect-error - This is a JSON file, not a TypeScript file
 import { modules } from "../foundryconfig.json";
 
+import { resolveModulePath } from "./config-paths.js";
 import { promptFvttInstall } from "./fvtt-install.js";
 
 const install = await promptFvttInstall();
@@ -31,8 +32,7 @@ if (!dataPathStats?.isDirectory()) {
 const modulesDir = path.resolve(dataPath, "Data", "modules");
 fs.mkdirSync(modulesDir, { recursive: true });
 
-const parentDir = path.resolve(process.cwd(), "..");
-const moduleDirs = modules.map((mod) => path.resolve(parentDir, mod));
+const moduleDirs = modules.map((mod) => resolveModulePath(mod));
 
 console.log(`Found ${moduleDirs.length} modules in config`);
 

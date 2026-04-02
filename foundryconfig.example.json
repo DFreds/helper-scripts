@@ -1,37 +1,42 @@
 {
-    "dataPath": "/absolute/path/to/your/FoundryVTT/Data",
-    "pf2eRepoPath": "path/to/pf2e/system/repo",
-    "uiExtenderRepoPath": "path/to/ui-extender/system/repo",
-    "migrationsRepoPath": "path/to/migrations/system/repo",
+    "pf2eRepoPath": "/absolute/path/to/pf2e/system/repo",
+    "uiExtenderRepoPath": "/absolute/path/to/lib-dfreds-ui-extender",
+    "migrationsRepoPath": "/absolute/path/to/lib-dfreds-migrations",
     "modules": [
-        "lib-dfreds-ui-extender",
-        "lib-dfreds-migrations",
-        "dfreds-chat-pins",
-        "dfreds-clipboard",
-        "dfreds-convenient-effects",
-        "dfreds-droppables",
-        "dfreds-effects-panel",
-        "dfreds-effects-to-chat",
-        "dfreds-module-template-ts",
-        "dfreds-obvious-settings",
-        "dfreds-picky-ui",
-        "dfreds-select-tool",
-        "dfreds-status-effects",
-        "fate-core-unleashed"
+        "/absolute/path/to/foundry-modules/lib-dfreds-ui-extender",
+        "/absolute/path/to/foundry-modules/lib-dfreds-migrations",
+        "/absolute/path/to/foundry-modules/dfreds-chat-pins",
+        "/absolute/path/to/foundry-modules/dfreds-clipboard",
+        "/absolute/path/to/foundry-modules/dfreds-convenient-effects",
+        "/absolute/path/to/foundry-modules/dfreds-droppables",
+        "/absolute/path/to/foundry-modules/dfreds-effects-panel",
+        "/absolute/path/to/foundry-modules/dfreds-effects-to-chat",
+        "/absolute/path/to/foundry-modules/dfreds-module-template-ts",
+        "/absolute/path/to/foundry-modules/dfreds-obvious-settings",
+        "/absolute/path/to/foundry-modules/dfreds-picky-ui",
+        "/absolute/path/to/foundry-modules/dfreds-select-tool",
+        "/absolute/path/to/foundry-modules/dfreds-status-effects",
+        "/absolute/path/to/foundry-modules/fate-core-unleashed"
     ],
     "uiExtenderModules": [
-        "dfreds-clipboard",
-        "dfreds-convenient-effects",
-        "dfreds-select-tool",
-        "dfreds-status-effects"
+        "/absolute/path/to/foundry-modules/dfreds-clipboard",
+        "/absolute/path/to/foundry-modules/dfreds-convenient-effects",
+        "/absolute/path/to/foundry-modules/dfreds-select-tool",
+        "/absolute/path/to/foundry-modules/dfreds-status-effects"
     ],
     "migrationModules": [
-        "dfreds-convenient-effects",
-        "dfreds-status-effects"
+        "/absolute/path/to/foundry-modules/dfreds-convenient-effects",
+        "/absolute/path/to/foundry-modules/dfreds-status-effects",
+        "/absolute/path/to/foundry-modules/dfreds-picky-ui"
     ],
     "fvtt": {
-        "11": "path/to/foundryvtt-11/folder",
-        "12": "path/to/foundryvtt-12/folder",
-        "13": "path/to/foundryvtt-13/folder"
+        "13": {
+            "appLocation": "/absolute/path/to/FoundryVTT-13",
+            "dataPath": "/absolute/path/to/user-data-containing-Data-folder"
+        },
+        "14": {
+            "appLocation": "/absolute/path/to/FoundryVTT-14",
+            "dataPath": "/absolute/path/to/user-data-containing-Data-folder"
+        }
     }
 }

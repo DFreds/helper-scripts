@@ -6,7 +6,7 @@ import { execSync } from "child_process";
 
 import configData from "../foundryconfig.json" with { type: "json" };
 
-const parentDir = path.resolve(process.cwd(), "..");
+import { resolveModulePath } from "./config-paths.js";
 
 // Define type configurations
 const typeConfigs = {
@@ -63,7 +63,7 @@ if (!sourceRepoPathStats?.isDirectory()) {
 }
 
 // Get all module directories
-const moduleDirs = config.moduleList.map((mod) => path.resolve(parentDir, mod));
+const moduleDirs = config.moduleList.map((mod) => resolveModulePath(mod));
 
 console.log(`Found ${moduleDirs.length} modules for ${config.name} in config`);
 
