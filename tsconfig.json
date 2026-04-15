@@ -1,9 +1,20 @@
 {
     "compilerOptions": {
-        "target": "ES2022",
+        "target": "es2024",
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
-        "lib": ["esnext", "dom", "dom.iterable"],
+        "lib": [
+            "ES2024",
+            "ESNext.Array",
+            "ESNext.AsyncIterable",
+            "ESNext.Collection",
+            "ESNext.Intl",
+            "ESNext.Iterator",
+            "ESNext.Promise",
+            "DOM",
+            "DOM.Iterable",
+            "DOM.AsyncIterable"
+        ],
         "noEmit": true,
         "strict": true,
         "noFallthroughCasesInSwitch": true,
@@ -17,16 +28,15 @@
         "esModuleInterop": true,
         "sourceMap": true,
         "isolatedModules": true,
-        "baseUrl": ".",
-        "rootDir": ".",
         "outDir": "dist",
         "allowUnusedLabels": false,
+        "allowUmdGlobalAccess": true,
         "removeComments": false,
         "resolveJsonModule": true,
         "useDefineForClassFields": true,
         "noErrorTruncation": true,
         "types": ["jquery", "node"],
-        "typeRoots": ["node_modules/@types"]
+        "typeRoots": ["./node_modules/@types"]
     },
     "include": ["build/**/*"]
 }
