@@ -35,8 +35,10 @@
         "resolveJsonModule": true,
         "useDefineForClassFields": true,
         "noErrorTruncation": true,
-        "types": ["jquery", "node"],
+        "types": ["node"],
         "typeRoots": ["./node_modules/@types"]
     },
-    "include": ["build/**/*"]
+    "include": [
+        "./build/**/*",
+    ]
 }
