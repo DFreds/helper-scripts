@@ -7,80 +7,70 @@
         {
             "path": "/absolute/path/to/foundry-modules/lib-dfreds-ui-extender",
             "hasUiExtenderTypes": false,
-            "hasMigrationTypes": false,
-            "hasPacks": false
+            "hasMigrationTypes": false
         },
         {
             "path": "/absolute/path/to/foundry-modules/lib-dfreds-migrations",
             "hasUiExtenderTypes": false,
-            "hasMigrationTypes": false,
-            "hasPacks": false
+            "hasMigrationTypes": false
         },
         {
             "path": "/absolute/path/to/foundry-modules/dfreds-chat-pins",
             "hasUiExtenderTypes": false,
-            "hasMigrationTypes": false,
-            "hasPacks": false
+            "hasMigrationTypes": false
         },
         {
             "path": "/absolute/path/to/foundry-modules/dfreds-clipboard",
             "hasUiExtenderTypes": true,
-            "hasMigrationTypes": false,
-            "hasPacks": false
+            "hasMigrationTypes": false
         },
         {
             "path": "/absolute/path/to/foundry-modules/dfreds-convenient-effects",
             "hasUiExtenderTypes": true,
             "hasMigrationTypes": true,
-            "hasPacks": false
+            "foundryWorldPackPaths": [
+                "worlds/your-world-id/packs/your-world-compendium-folder"
+            ]
         },
         {
             "path": "/absolute/path/to/foundry-modules/dfreds-droppables",
             "hasUiExtenderTypes": false,
-            "hasMigrationTypes": false,
-            "hasPacks": false
+            "hasMigrationTypes": false
         },
         {
             "path": "/absolute/path/to/foundry-modules/dfreds-effects-panel",
             "hasUiExtenderTypes": false,
-            "hasMigrationTypes": false,
-            "hasPacks": false
+            "hasMigrationTypes": false
         },
         {
             "path": "/absolute/path/to/foundry-modules/dfreds-effects-to-chat",
             "hasUiExtenderTypes": false,
-            "hasMigrationTypes": false,
-            "hasPacks": false
+            "hasMigrationTypes": false
         },
         {
             "path": "/absolute/path/to/foundry-modules/dfreds-module-template-ts",
             "hasUiExtenderTypes": false,
-            "hasMigrationTypes": false,
-            "hasPacks": false
+            "hasMigrationTypes": false
         },
         {
             "path": "/absolute/path/to/foundry-modules/dfreds-obvious-settings",
             "hasUiExtenderTypes": false,
-            "hasMigrationTypes": false,
-            "hasPacks": false
+            "hasMigrationTypes": false
         },
         {
             "path": "/absolute/path/to/foundry-modules/dfreds-picky-ui",
             "hasUiExtenderTypes": false,
-            "hasMigrationTypes": true,
-            "hasPacks": false
+            "hasMigrationTypes": true
         },
         {
             "path": "/absolute/path/to/foundry-modules/dfreds-select-tool",
             "hasUiExtenderTypes": true,
-            "hasMigrationTypes": false,
-            "hasPacks": false
+            "hasMigrationTypes": false
         },
         {
             "path": "/absolute/path/to/foundry-modules/dfreds-status-effects",
             "hasUiExtenderTypes": true,
-            "hasMigrationTypes": true,
-            "hasPacks": false
+            "hasMigrationTypes": true
         }
     ],
     "fvtt": {

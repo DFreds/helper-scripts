@@ -11,15 +11,16 @@
         "link-modules": "tsx ./build/link-modules-to-foundry.ts",
         "delete-node-and-reinstall": "tsx ./build/delete-node-and-reinstall.ts",
         "copy-pf2e-devdeps": "tsx ./build/copy-pf2e-devdeps-to-modules.ts",
+        "pack-world-compendiums": "tsx ./build/pack-world-compendiums.ts",
         "lint": "eslint",
         "lint:fix": "eslint --fix"
     },
     "author": "DFreds",
     "license": "MIT",
     "devDependencies": {
+        "@foundryvtt/foundryvtt-cli": "^3.0.3",
         "@eslint/js": "^10.0.1",
         "@eslint/json": "^1.2.0",
-        "@foundryvtt/foundryvtt-cli": "^3.0.3",
         "@types/fs-extra": "^11.0.4",
         "@types/glob": "^8.1.0",
         "@types/node": "^25.6.0",

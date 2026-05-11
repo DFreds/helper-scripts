@@ -12,7 +12,12 @@ export type FoundryModuleEntry = {
     path: string;
     hasUiExtenderTypes: boolean;
     hasMigrationTypes: boolean;
-    hasPacks: boolean;
+    /**
+     * Paths relative to the selected install's Foundry `Data` folder (see `resolveWorldPackPath`),
+     * e.g. `worlds/my-world/packs/my-compendium`. Used by `pack-world-compendiums` to sync with
+     * `<module>/src/packs/<compendium-folder>/`.
+     */
+    foundryWorldPackPaths?: string[];
 };
 
 /**
