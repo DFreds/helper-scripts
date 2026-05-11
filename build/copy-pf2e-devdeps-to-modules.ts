@@ -5,7 +5,7 @@ import { execSync } from "child_process";
 
 import configData from "../foundryconfig.json" with { type: "json" };
 
-import { resolveModulePath } from "./config-paths.js";
+import { allResolvedModuleDirs } from "./util/config-paths.ts";
 
 type PackageJson = Record<string, unknown> & {
     name?: string;
@@ -27,7 +27,7 @@ if (!pf2eDevDependencies || Object.keys(pf2eDevDependencies).length === 0) {
 }
 
 // Get all module directories
-const moduleDirs = configData.modules.map((mod) => resolveModulePath(mod));
+const moduleDirs = allResolvedModuleDirs(configData.modules);
 
 console.log(`Loaded ${Object.keys(pf2eDevDependencies).length} PF2e devDependencies`);
 console.log(`Found ${moduleDirs.length} modules in config`);

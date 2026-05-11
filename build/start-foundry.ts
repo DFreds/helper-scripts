@@ -5,7 +5,7 @@ import { promisify } from "util";
 
 import { exec } from "child_process";
 
-import { promptFvttInstall } from "./fvtt-install.js";
+import { promptFvttInstall } from "./util/fvtt-install.ts";
 
 const install = await promptFvttInstall();
 if (!install) {

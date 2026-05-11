@@ -3,13 +3,11 @@ import fs from "fs";
 import path from "path";
 import prompts from "prompts";
 
-// @ts-expect-error - This is a JSON file, not a TypeScript file
-import { modules } from "../foundryconfig.json";
+import configData from "../foundryconfig.json" with { type: "json" };
 
-import { resolveModulePath } from "./config-paths.js";
+import { allResolvedModuleDirs } from "./util/config-paths.ts";
 
-// Get all module directories
-const moduleDirs = modules.map((mod) => resolveModulePath(mod));
+const moduleDirs = allResolvedModuleDirs(configData.modules);
 
 console.log(`Found ${moduleDirs.length} modules in config`);
 

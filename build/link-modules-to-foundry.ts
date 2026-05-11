@@ -3,11 +3,10 @@ import path from "path";
 import process from "process";
 import prompts from "prompts";
 
-// @ts-expect-error - This is a JSON file, not a TypeScript file
-import { modules } from "../foundryconfig.json";
+import configData from "../foundryconfig.json" with { type: "json" };
 
-import { resolveModulePath } from "./config-paths.js";
-import { promptFvttInstall } from "./fvtt-install.js";
+import { allResolvedModuleDirs } from "./util/config-paths.ts";
+import { promptFvttInstall } from "./util/fvtt-install.ts";
 
 const install = await promptFvttInstall();
 if (!install) {
@@ -32,7 +31,7 @@ if (!dataPathStats?.isDirectory()) {
 const modulesDir = path.resolve(dataPath, "Data", "modules");
 fs.mkdirSync(modulesDir, { recursive: true });
 
-const moduleDirs = modules.map((mod) => resolveModulePath(mod));
+const moduleDirs = allResolvedModuleDirs(configData.modules);
 
 console.log(`Found ${moduleDirs.length} modules in config`);
 

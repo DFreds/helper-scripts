@@ -6,7 +6,15 @@ import { execSync } from "child_process";
 
 import configData from "../foundryconfig.json" with { type: "json" };
 
-import { resolveModulePath } from "./config-paths.js";
+import { resolveModulePath } from "./util/config-paths.ts";
+
+const pf2eModulePaths = configData.modules.map((m) => m.path);
+const uiExtenderModulePaths = configData.modules
+    .filter((m) => m.hasUiExtenderTypes)
+    .map((m) => m.path);
+const migrationModulePaths = configData.modules
+    .filter((m) => m.hasMigrationTypes)
+    .map((m) => m.path);
 
 // Define type configurations
 const typeConfigs = {
@@ -14,21 +22,21 @@ const typeConfigs = {
         name: "PF2e Types",
         sourcePath: path.resolve(configData.pf2eRepoPath, "types", "foundry"),
         targetSubdir: "foundry",
-        moduleList: configData.modules,
+        modulePaths: pf2eModulePaths,
         runLint: false,
     },
     uiExtender: {
         name: "UI Extender Types",
         sourcePath: path.resolve(configData.uiExtenderRepoPath, "types", "uiExtender"),
         targetSubdir: "uiExtender",
-        moduleList: configData.uiExtenderModules,
+        modulePaths: uiExtenderModulePaths,
         runLint: true,
     },
     migration: {
         name: "Migration Types",
         sourcePath: path.resolve(configData.migrationsRepoPath, "types", "migrations"),
         targetSubdir: "migrations",
-        moduleList: configData.migrationModules,
+        modulePaths: migrationModulePaths,
         runLint: false,
     },
 };
@@ -63,7 +71,7 @@ if (!sourceRepoPathStats?.isDirectory()) {
 }
 
 // Get all module directories
-const moduleDirs = config.moduleList.map((mod) => resolveModulePath(mod));
+const moduleDirs = config.modulePaths.map((mod) => resolveModulePath(mod));
 
 console.log(`Found ${moduleDirs.length} modules for ${config.name} in config`);
 

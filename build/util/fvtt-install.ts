@@ -1,7 +1,8 @@
 import prompts from "prompts";
 
-// @ts-expect-error - This is a JSON file, not a TypeScript file
-import { fvtt } from "../foundryconfig.json";
+import foundryConfig from "../../foundryconfig.json" with { type: "json" };
+
+const { fvtt } = foundryConfig;
 
 export type FvttInstall = {
     versionKey: string;
