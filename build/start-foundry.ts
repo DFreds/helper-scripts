@@ -15,11 +15,17 @@ if (!install) {
 const { appLocation, dataPath } = install;
 
 if (!dataPath || /\bData$/.test(dataPath)) {
-    console.error(`You should point the dataPath to the location that will contain the Data folder, not the Data folder itself.`);
+    console.error(
+        `You should point the dataPath to the location that will contain the Data folder, not the Data folder itself.`,
+    );
     process.exit(1);
 }
 
-const execPath = path.resolve(appLocation, "App", "Foundry Virtual Tabletop.exe");
+const execPath = path.resolve(
+    appLocation,
+    "App",
+    "Foundry Virtual Tabletop.exe",
+);
 const nodeEntryPoint = path.resolve(appLocation, "main.js");
 const oldNodeEntryPoint = path.resolve(
     appLocation,
@@ -46,6 +52,9 @@ const startFoundry = async () => {
             if (stderr) console.error(`stderr: ${stderr}`);
         } else if (fs.existsSync(nodeEntryPoint)) {
             console.log(`Starting FoundryVTT from ${nodeEntryPoint}...`);
+            console.log(
+                `Likely available at http://localhost:30000. Ctrl-C to stop.`,
+            );
 
             const { stdout, stderr } = await execAsync(
                 `node ${nodeEntryPoint} --dataPath=${dataPath}`,
