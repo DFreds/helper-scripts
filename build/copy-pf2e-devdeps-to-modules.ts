@@ -73,6 +73,16 @@ for (const dir of directoriesToProcess) {
     console.log(`\nProcessing ${moduleName}...`);
 
     try {
+        const branch = execSync("git branch --show-current", {
+            cwd: dir,
+            encoding: "utf8",
+        }).trim();
+        console.log(
+            `Pulling latest changes for branch '${branch}' in ${moduleName}...`,
+        );
+        execSync("git pull", { cwd: dir, stdio: "inherit" });
+        console.log(`Successfully pulled in ${moduleName}`);
+
         const targetPackageJsonPath = path.resolve(dir, "package.json");
         if (!fs.existsSync(targetPackageJsonPath)) {
             throw new Error(`No package.json found at ${targetPackageJsonPath}`);

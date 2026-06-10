@@ -48,6 +48,16 @@ for (const dir of directoriesToProcess) {
     console.log(`\nProcessing ${path.basename(dir)}...`);
 
     try {
+        const branch = execSync("git branch --show-current", {
+            cwd: dir,
+            encoding: "utf8",
+        }).trim();
+        console.log(
+            `Pulling latest changes for branch '${branch}' in ${path.basename(dir)}...`,
+        );
+        execSync("git pull", { cwd: dir, stdio: "inherit" });
+        console.log(`Successfully pulled in ${path.basename(dir)}`);
+
         // Delete package-lock.json if it exists
         const packageLockPath = path.join(dir, "package-lock.json");
         if (fs.existsSync(packageLockPath)) {
