@@ -28,9 +28,7 @@
             "path": "/absolute/path/to/foundry-modules/dfreds-convenient-effects",
             "hasUiExtenderTypes": true,
             "hasMigrationTypes": true,
-            "foundryWorldPackPaths": [
-                "worlds/your-world-id/packs/your-world-compendium-folder"
-            ]
+            "foundryWorldPackPaths": ["worlds/your-world-id/packs/your-world-compendium-folder"]
         },
         {
             "path": "/absolute/path/to/foundry-modules/dfreds-droppables",
@@ -55,6 +53,11 @@
         {
             "path": "/absolute/path/to/foundry-modules/dfreds-obvious-settings",
             "hasUiExtenderTypes": false,
+            "hasMigrationTypes": false
+        },
+        {
+            "path": "/absolute/path/to/foundry-modules/dfreds-notifications",
+            "hasUiExtenderTypes": true,
             "hasMigrationTypes": false
         },
         {
