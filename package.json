@@ -6,12 +6,11 @@
     "type": "module",
     "scripts": {
         "foundry": "tsx ./build/start-foundry.ts",
-        "update-types": "tsx ./build/update-pf2e-types.ts && tsx ./build/copy-types-to-modules.ts",
+        "update-types": "tsx ./build/copy-types-to-modules.ts",
         "stage": "tsx ./build/stage-modules.ts",
         "pull": "tsx ./build/pull-modules.ts",
         "link-modules": "tsx ./build/link-modules-to-foundry.ts",
         "delete-node-and-reinstall": "tsx ./build/delete-node-and-reinstall.ts",
-        "copy-pf2e-devdeps": "tsx ./build/copy-pf2e-devdeps-to-modules.ts",
         "pack-world-compendiums": "tsx ./build/pack-world-compendiums.ts",
         "lint": "eslint",
         "lint:fix": "eslint --fix"

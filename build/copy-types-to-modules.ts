@@ -8,7 +8,6 @@ import configData from "../foundryconfig.json" with { type: "json" };
 
 import { resolveModulePath } from "./util/config-paths.ts";
 
-const pf2eModulePaths = configData.modules.map((m) => m.path);
 const uiExtenderModulePaths = configData.modules
     .filter((m) => m.hasUiExtenderTypes)
     .map((m) => m.path);
@@ -18,13 +17,6 @@ const migrationModulePaths = configData.modules
 
 // Define type configurations
 const typeConfigs = {
-    pf2e: {
-        name: "PF2e Types",
-        sourcePath: path.resolve(configData.pf2eRepoPath, "types", "foundry"),
-        targetSubdir: "foundry",
-        modulePaths: pf2eModulePaths,
-        runLint: false,
-    },
     uiExtender: {
         name: "UI Extender Types",
         sourcePath: path.resolve(configData.uiExtenderRepoPath, "types", "uiExtender"),
@@ -47,7 +39,6 @@ const typeResponse = await prompts({
     name: "type",
     message: "Select which types to update:",
     choices: [
-        { title: "PF2e Types", value: "pf2e" },
         { title: "UI Extender Types", value: "uiExtender" },
         { title: "Migration Types", value: "migration" },
     ],

@@ -1,6 +1,4 @@
 {
-    "pf2eRepoPath": "/absolute/path/to/pf2e/system/repo",
-    "pf2eBranch": "v14-dev",
     "uiExtenderRepoPath": "/absolute/path/to/lib-dfreds-ui-extender",
     "migrationsRepoPath": "/absolute/path/to/lib-dfreds-migrations",
     "modules": [
