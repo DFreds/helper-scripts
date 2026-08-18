@@ -59,6 +59,11 @@
             "hasMigrationTypes": false
         },
         {
+            "path": "/absolute/path/to/foundry-modules/dfreds-pocket-change",
+            "hasUiExtenderTypes": false,
+            "hasMigrationTypes": false
+        },
+        {
             "path": "/absolute/path/to/foundry-modules/dfreds-picky-ui",
             "hasUiExtenderTypes": false,
             "hasMigrationTypes": true
