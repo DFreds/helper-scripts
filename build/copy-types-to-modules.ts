@@ -19,14 +19,14 @@ const migrationModulePaths = configData.modules
 const typeConfigs = {
     uiExtender: {
         name: "UI Extender Types",
-        sourcePath: path.resolve(configData.uiExtenderRepoPath, "types", "uiExtender"),
+        sourcePath: path.join(resolveModulePath(configData.uiExtenderRepoPath), "types", "uiExtender"),
         targetSubdir: "uiExtender",
         modulePaths: uiExtenderModulePaths,
         runLint: true,
     },
     migration: {
         name: "Migration Types",
-        sourcePath: path.resolve(configData.migrationsRepoPath, "types", "migrations"),
+        sourcePath: path.join(resolveModulePath(configData.migrationsRepoPath), "types", "migrations"),
         targetSubdir: "migrations",
         modulePaths: migrationModulePaths,
         runLint: false,

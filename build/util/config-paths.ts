@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 /** Directory containing `foundryconfig.json` (helper-scripts package root). */
 const helperScriptsDir = path.resolve(
     path.dirname(fileURLToPath(import.meta.url)),
-    "..",
+    "../..",
 );
 
 /** One module repo entry under `modules` in `foundryconfig.json`. */
