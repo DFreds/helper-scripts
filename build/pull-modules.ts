@@ -4,11 +4,12 @@ import { execSync } from "child_process";
 
 import configData from "../foundryconfig.json" with { type: "json" };
 
-import { allResolvedModuleDirs } from "./util/config-paths.ts";
+import { allResolvedModuleDirs, resolveModulePath } from "./util/config-paths.ts";
 
-const moduleDirs = allResolvedModuleDirs(configData.modules);
+const supplementalRepos: string[] = configData.supplementalRepos ?? [];
+const moduleDirs = [...allResolvedModuleDirs(configData.modules), ...supplementalRepos.map(resolveModulePath)];
 
-console.log(`Found ${moduleDirs.length} modules in config`);
+console.log(`Found ${moduleDirs.length} repos in config`);
 
 // Create choices for the prompt
 const choices = [

@@ -79,6 +79,7 @@
             "hasMigrationTypes": true
         }
     ],
+    "supplementalRepos": [],
     "fvtt": {
         "13": {
             "appLocation": "/absolute/path/to/FoundryVTT-13",
