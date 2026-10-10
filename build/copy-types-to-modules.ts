@@ -1,5 +1,4 @@
 import fs from "fs";
-import fsExtra from "fs-extra";
 import path from "path";
 import prompts from "prompts";
 import { execSync } from "child_process";
@@ -79,13 +78,12 @@ for (const dir of directoriesToProcess) {
         // Clean existing types if they exist
         if (fs.existsSync(targetDir)) {
             console.log(`Cleaning ${targetDir}`);
-            fsExtra.removeSync(targetDir);
+            fs.rmSync(targetDir, { recursive: true, force: true });
         }
 
         // Create directory and copy files
         console.log(`Copying ${config.name} to ${targetDir}`);
-        fs.mkdirSync(targetDir, { recursive: true });
-        fsExtra.copySync(sourceDataPath, targetDir);
+        fs.cpSync(sourceDataPath, targetDir, { recursive: true });
         console.log(
             `Successfully copied ${config.name} to ${path.basename(dir)}`,
         );
