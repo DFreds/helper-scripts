@@ -7,6 +7,7 @@ import configData from "../foundryconfig.json" with { type: "json" };
 
 import { allResolvedModuleDirs } from "./util/config-paths.ts";
 import { promptFvttInstall } from "./util/fvtt-install.ts";
+import { promptModuleDirs } from "./util/select-modules.ts";
 
 const install = await promptFvttInstall();
 if (!install) {
@@ -35,31 +36,7 @@ const moduleDirs = allResolvedModuleDirs(configData.modules);
 
 console.log(`Found ${moduleDirs.length} modules in config`);
 
-const choices = [
-    { title: "All modules", value: "all" },
-    ...moduleDirs.map((dir) => ({
-        title: path.basename(dir),
-        value: dir,
-        selected: false,
-    })),
-];
-
-const response = await prompts({
-    type: "multiselect",
-    name: "directories",
-    message:
-        "Select which modules to link (use spacebar to select/deselect):",
-    choices,
-});
-
-if (!response.directories || response.directories.length === 0) {
-    console.log("No selection made. Exiting...");
-    process.exit(0);
-}
-
-const directoriesToProcess = response.directories.includes("all")
-    ? moduleDirs
-    : response.directories;
+const directoriesToProcess = await promptModuleDirs(moduleDirs, "Select which modules to link");
 
 type Failure = { module: string; reason: string };
 

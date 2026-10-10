@@ -7,6 +7,7 @@ import { execSync } from "child_process";
 import configData from "../foundryconfig.json" with { type: "json" };
 
 import { resolveModulePath } from "./util/config-paths.ts";
+import { exitOnModuleErrors, promptModuleDirs, type ModuleError } from "./util/select-modules.ts";
 
 const uiExtenderModulePaths = configData.modules
     .filter((m) => m.hasUiExtenderTypes)
@@ -66,35 +67,9 @@ const moduleDirs = config.modulePaths.map((mod) => resolveModulePath(mod));
 
 console.log(`Found ${moduleDirs.length} modules for ${config.name} in config`);
 
-// Create choices for the prompt
-const choices = [
-    { title: "All modules", value: "all" },
-    ...moduleDirs.map((dir) => ({
-        title: path.basename(dir),
-        value: dir,
-        selected: false,
-    })),
-];
+const directoriesToProcess = await promptModuleDirs(moduleDirs, `Select which modules to update with ${config.name}`);
 
-// Prompt for module selection
-const moduleResponse = await prompts({
-    type: "multiselect",
-    name: "directories",
-    message: `Select which modules to update with ${config.name} (use spacebar to select/deselect):`,
-    choices,
-});
-
-if (!moduleResponse.directories || moduleResponse.directories.length === 0) {
-    console.log("No selection made. Exiting...");
-    process.exit(0);
-}
-
-// Process selected directory(ies)
-const directoriesToProcess = moduleResponse.directories.includes("all")
-    ? moduleDirs
-    : moduleResponse.directories;
-
-const errors: { module: string; error: any }[] = [];
+const errors: ModuleError[] = [];
 
 for (const dir of directoriesToProcess) {
     const targetDir = path.resolve(dir, "types", config.targetSubdir);
@@ -127,14 +102,7 @@ for (const dir of directoriesToProcess) {
     }
 }
 
-// Print all errors at the end if any occurred
-if (errors.length > 0) {
-    console.log("\nErrors encountered during processing:");
-    errors.forEach(({ module, error }) => {
-        console.error(`\nError in module ${module}:`);
-        console.error(error);
-    });
-}
+exitOnModuleErrors(errors, "Errors encountered during processing:");
 
 const lintMessage = config.runLint ? " and running lint:fix" : "";
 console.log(

@@ -1,46 +1,19 @@
 import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
-import prompts from "prompts";
 
 import configData from "../foundryconfig.json" with { type: "json" };
 
 import { allResolvedModuleDirs } from "./util/config-paths.ts";
+import { exitOnModuleErrors, promptModuleDirs, type ModuleError } from "./util/select-modules.ts";
 
 const moduleDirs = allResolvedModuleDirs(configData.modules);
 
 console.log(`Found ${moduleDirs.length} modules in config`);
 
-// Create choices for the prompt
-const choices = [
-    { title: "All modules", value: "all" },
-    ...moduleDirs.map((dir) => ({
-        title: path.basename(dir),
-        value: dir,
-        selected: false,
-    })),
-];
+const directoriesToProcess = await promptModuleDirs(moduleDirs, "Select which modules to clean and reinstall");
 
-// Prompt for selection
-const response = await prompts({
-    type: "multiselect",
-    name: "directories",
-    message:
-        "Select which modules to clean and reinstall (use spacebar to select/deselect):",
-    choices,
-});
-
-if (!response.directories || response.directories.length === 0) {
-    console.log("No selection made. Exiting...");
-    process.exit(0);
-}
-
-// Process selected directory(ies)
-const directoriesToProcess = response.directories.includes("all")
-    ? moduleDirs
-    : response.directories;
-
-const errors: { module: string; error: Error }[] = [];
+const errors: ModuleError[] = [];
 
 for (const dir of directoriesToProcess) {
     console.log(`\nProcessing ${path.basename(dir)}...`);
@@ -81,18 +54,9 @@ for (const dir of directoriesToProcess) {
         execSync("npm install", { cwd: dir, stdio: "inherit" });
         console.log(`Successfully ran npm install in ${path.basename(dir)}`);
     } catch (error) {
-        errors.push({ module: path.basename(dir), error: error as Error });
+        errors.push({ module: path.basename(dir), error });
     }
 }
 
-// Print summary at the end
-if (errors.length > 0) {
-    console.log("\nErrors encountered during cleanup and reinstall:");
-    errors.forEach(({ module, error }) => {
-        console.log(`\n${module}:`);
-        console.error(error);
-    });
-    process.exit(1);
-} else {
-    console.log("\nSuccessfully cleaned and reinstalled all selected modules");
-}
+exitOnModuleErrors(errors, "Errors encountered during cleanup and reinstall:");
+console.log("\nSuccessfully cleaned and reinstalled all selected modules");

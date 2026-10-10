@@ -21,6 +21,7 @@ import {
     resolveWorldPackPath,
     worldPackFolderName,
 } from "./util/resolve-world-pack-path.ts";
+import { promptModuleDirs } from "./util/select-modules.ts";
 
 function directoryContainsJson(dir: string): boolean {
     if (!fs.existsSync(dir) || !fs.statSync(dir).isDirectory()) return false;
@@ -78,31 +79,7 @@ if (!actionResponse.action) {
 
 const moduleDirs = modulesWithWorldPacks.map(resolveModuleEntryPath);
 
-const choices = [
-    { title: "All modules with foundryWorldPackPaths", value: "all" },
-    ...moduleDirs.map((dir) => ({
-        title: path.basename(dir),
-        value: dir,
-        selected: false,
-    })),
-];
-
-const moduleResponse = await prompts({
-    type: "multiselect",
-    name: "directories",
-    message:
-        "Select which modules to run against (use spacebar to select/deselect):",
-    choices,
-});
-
-if (!moduleResponse.directories || moduleResponse.directories.length === 0) {
-    console.log("No selection made. Exiting...");
-    process.exit(0);
-}
-
-const directoriesToProcess = moduleResponse.directories.includes("all")
-    ? moduleDirs
-    : moduleResponse.directories;
+const directoriesToProcess = await promptModuleDirs(moduleDirs, "Select which modules to run against");
 
 const errors: { module: string; detail: string; error: unknown }[] = [];
 
