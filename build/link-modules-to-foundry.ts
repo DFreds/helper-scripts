@@ -81,6 +81,14 @@ for (const moduleRoot of directoriesToProcess) {
     const symlinkPath = path.resolve(dataPath, "Data", "modules", moduleId);
     const symlinkStats = fs.lstatSync(symlinkPath, { throwIfNoEntry: false });
 
+    const isAlreadyLinked =
+        symlinkStats?.isSymbolicLink() &&
+        path.resolve(path.dirname(symlinkPath), fs.readlinkSync(symlinkPath)) === distPath;
+    if (isAlreadyLinked) {
+        console.log(`${moduleName} is already linked.`);
+        continue;
+    }
+
     if (symlinkStats) {
         const atPath = symlinkStats.isDirectory()
             ? "folder"
