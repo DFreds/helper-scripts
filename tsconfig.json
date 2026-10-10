@@ -10,10 +10,7 @@
             "ESNext.Collection",
             "ESNext.Intl",
             "ESNext.Iterator",
-            "ESNext.Promise",
-            "DOM",
-            "DOM.Iterable",
-            "DOM.AsyncIterable"
+            "ESNext.Promise"
         ],
         "noEmit": true,
         "strict": true,
