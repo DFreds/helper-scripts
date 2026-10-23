@@ -10,7 +10,8 @@
         "stage": "tsx ./build/stage-modules.ts",
         "pull": "tsx ./build/pull-modules.ts",
         "link-modules": "tsx ./build/link-modules-to-foundry.ts",
-        "delete-node-and-reinstall": "tsx ./build/delete-node-and-reinstall.ts",
+        "reinstall": "tsx ./build/delete-node-and-reinstall.ts",
+        "reinstall:force": "tsx ./build/delete-node-and-reinstall.ts --force",
         "pack-world-compendiums": "tsx ./build/pack-world-compendiums.ts"
     },
     "author": "DFreds",
