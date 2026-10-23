@@ -51,7 +51,7 @@ for (const dir of directoriesToProcess) {
 
         // Run npm install
         console.log(`Running npm install in ${path.basename(dir)}...`);
-        execSync("npm install", { cwd: dir, stdio: "inherit" });
+        execSync("npm ci", { cwd: dir, stdio: "inherit" });
         console.log(`Successfully ran npm install in ${path.basename(dir)}`);
     } catch (error) {
         errors.push({ module: path.basename(dir), error });
