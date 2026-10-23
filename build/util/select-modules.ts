@@ -3,9 +3,12 @@ import prompts from "prompts";
 
 /**
  * Asks which of `moduleDirs` to run against, with an "All modules" option.
+ * Returns every module without asking when the script is run with `--all`.
  * Exits the process if nothing is selected.
  */
 export async function promptModuleDirs(moduleDirs: string[], message: string): Promise<string[]> {
+    if (process.argv.includes("--all")) return moduleDirs;
+
     const response = await prompts({
         type: "multiselect",
         name: "directories",
